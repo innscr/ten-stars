@@ -49,24 +49,33 @@ const tempWatchedData = [
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+
 //structural component
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   return (
     <>
-      <NavBar movies={movies} />
-      <Main movies={movies} />
+      <NavBar>
+        <Search />
+        <Results movies={movies} />
+      </NavBar>
+
+      <Main>
+        <SearchListBox>
+          <ListMovies movies={movies} />
+        </SearchListBox>
+        <WatchedMoviesBox />
+      </Main>
     </>
   );
 }
 
 //structural component
-function NavBar({ movies }) {
+function NavBar({ children }) {
   return (
     <nav className="nav-bar">
       <Logo />
-      <Search />
-      <Results movies={movies} />
+      {children}
     </nav>
   );
 }
@@ -102,16 +111,11 @@ function Search() {
   );
 }
 //structural component
-function Main({ movies }) {
-  return (
-    <main className="main">
-      <SearchListBox movies={movies} />
-      <WatchedMoviesBox />
-    </main>
-  );
+function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 // stateful component
-function SearchListBox({ movies }) {
+function SearchListBox({ children }) {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
     <div className="box">
@@ -121,7 +125,7 @@ function SearchListBox({ movies }) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <ListMovies movies={movies} />}
+      {isOpen1 && children}
     </div>
   );
 }
