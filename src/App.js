@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 
 const tempMovieData = [
   {
@@ -50,21 +51,36 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = "6f439726";
 //structural component
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const query = "interstellar";
+  useEffect(function () {
+    async function fetchMovies() {
+      setIsLoading(true);
+      const response = await fetch(
+        `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+      );
+
+      const data = await response.json();
+      setMovies(data.Search);
+      setIsLoading(false);
+    }
+    fetchMovies();
+  }, []);
+
   return (
     <>
       <NavBar>
         <Search />
-        <Results movies={movies} />
+        <Results movies={movies.length} />
       </NavBar>
 
       <Main>
-        <Box>
-          <ListMovies movies={movies} />
-        </Box>
+        <Box>{isLoading ? <Loader /> : <ListMovies movies={movies} />}</Box>
 
         <Box>
           <SummaryWatched watched={watched} />
@@ -73,6 +89,10 @@ export default function App() {
       </Main>
     </>
   );
+}
+
+function Loader() {
+  return <p className="loader">Loading results...</p>;
 }
 
 //structural component
@@ -90,7 +110,7 @@ function Logo() {
   return (
     <div className="logo">
       <span role="img">⭐️</span>
-      <h1>tenStars</h1>
+      <h1>tenStars Movies</h1>
     </div>
   );
 }
@@ -99,7 +119,7 @@ function Logo() {
 function Results({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>{movies.length}</strong> results
+      Found <strong>{movies}</strong> results
     </p>
   );
 }
