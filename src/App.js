@@ -59,12 +59,23 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
+
+  function handleSelectMovie(id) {
+    setSelectedId((selectedId) => (id === selectedId ? null : id));
+  }
+
+  function handleCloseMovie() {
+    setSelectedId(null);
+  }
+
   useEffect(
     function () {
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setError("");
+
           const response = await fetch(
             `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
           );
@@ -104,13 +115,24 @@ export default function App() {
         <Box>
           {/*{isLoading ? <Loader /> : <ListMovies movies={movies} />}*/}
           {isLoading && <Loader />}
-          {!isLoading && !error && <ListMovies movies={movies} />}
+          {!isLoading && !error && (
+            <ListMovies movies={movies} onSelectMovie={handleSelectMovie} />
+          )}
           {error && <ErrorMess message={error} />}
         </Box>
 
         <Box>
-          <SummaryWatched watched={watched} />
-          <WatchedList watched={watched} />
+          {selectedId ? (
+            <SelectedMovie
+              selectedId={selectedId}
+              onCloseMovie={handleCloseMovie}
+            />
+          ) : (
+            <>
+              <SummaryWatched watched={watched} />
+              <WatchedList watched={watched} />{" "}
+            </>
+          )}
         </Box>
       </Main>
     </>
@@ -190,19 +212,23 @@ function Box({ children }) {
 }
 
 // stateful component
-function ListMovies({ movies }) {
+function ListMovies({ movies, onSelectMovie }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map((movie) => (
-        <MovieInfo movie={movie} key={movie.imdbID} />
+        <MovieInfo
+          movie={movie}
+          key={movie.imdbID}
+          onSelectMovie={onSelectMovie}
+        />
       ))}
     </ul>
   );
 }
 // presenattional component
-function MovieInfo({ movie }) {
+function MovieInfo({ movie, onSelectMovie }) {
   return (
-    <li>
+    <li onClick={() => onSelectMovie(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -212,6 +238,17 @@ function MovieInfo({ movie }) {
         </p>
       </div>
     </li>
+  );
+}
+
+function SelectedMovie({ selectedId, onCloseMovie }) {
+  return (
+    <div className="details">
+      <button className="btn-back" onClick={onCloseMovie}>
+        &larr;
+      </button>
+      {selectedId}
+    </div>
   );
 }
 
