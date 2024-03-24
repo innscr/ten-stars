@@ -18,7 +18,7 @@ Rating.propTypes = {
 };
 
 export default function Rating({ maxRating, color = "#FCC419", size = "48" }) {
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
   const [temporaryRat, setTemporaryRat] = useState(0);
 
   const textStyle = {
