@@ -7,19 +7,36 @@ const containerStyle = {
   gap: "16px",
 };
 
-const ContainerStars = {
+const starContainerStyle = {
   display: "flex",
 };
 
-Rating.propTypes = {
+StarRating.propTypes = {
   maxRating: PropTypes.number,
+  defaultRating: PropTypes.number,
   color: PropTypes.string,
   size: PropTypes.number,
+  messages: PropTypes.array,
+  className: PropTypes.string,
+  onSetRating: PropTypes.func,
 };
 
-export default function Rating({ maxRating, color = "#FCC419", size = "48" }) {
-  const [rating, setRating] = useState(0);
-  const [temporaryRat, setTemporaryRat] = useState(0);
+export default function StarRating({
+  maxRating = 5,
+  color = "#fcc419",
+  size = 48,
+  className = "",
+  messages = [],
+  defaultRating = 0,
+  onSetRating,
+}) {
+  const [rating, setRating] = useState(defaultRating);
+  const [tempRating, setTempRating] = useState(0);
+
+  function handleRating(rating) {
+    setRating(rating);
+    onSetRating(rating);
+  }
 
   const textStyle = {
     lineHeight: "1",
@@ -29,36 +46,41 @@ export default function Rating({ maxRating, color = "#FCC419", size = "48" }) {
   };
 
   return (
-    <div style={containerStyle}>
-      <div style={ContainerStars}>
+    <div style={containerStyle} className={className}>
+      <div style={starContainerStyle}>
         {Array.from({ length: maxRating }, (_, i) => (
           <Star
             key={i}
-            onRate={() => setRating(i + 1)}
-            full={temporaryRat ? temporaryRat >= i + 1 : rating >= i + 1}
-            onHoverIn={() => setTemporaryRat(i + 1)}
-            onHoverOut={() => setTemporaryRat(0)}
+            full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+            onRate={() => handleRating(i + 1)}
+            onHoverIn={() => setTempRating(i + 1)}
+            onHoverOut={() => setTempRating(0)}
             color={color}
             size={size}
           />
         ))}
       </div>
-      <p style={textStyle}>{temporaryRat || rating || ""}</p>
+      <p style={textStyle}>
+        {messages.length === maxRating
+          ? messages[tempRating ? tempRating - 1 : rating - 1]
+          : tempRating || rating || ""}
+      </p>
     </div>
   );
 }
 
 function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
-  const StyleStar = {
+  const starStyle = {
     width: `${size}px`,
     height: `${size}px`,
     display: "block",
     cursor: "pointer",
   };
+
   return (
     <span
       role="button"
-      style={StyleStar}
+      style={starStyle}
       onClick={onRate}
       onMouseEnter={onHoverIn}
       onMouseLeave={onHoverOut}
