@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# TenStarsMovies
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**TenStarsMovies** is a web application for searching and rating movies, using the external [OMDb API (Open Movie Database)](https://www.omdbapi.com). The project allows users to quickly find interesting films and manage their own list of watched titles.
+![image](https://github.com/user-attachments/assets/af5c4f17-c573-4a03-b047-4c2abd6b8c18)
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Movie Search**  
+  Users can type a query into the search field on the left side of the screen, which displays a list of matching movies fetched from the OMDb API. On the right side, the number of results is shown to help navigate available titles. If a movie is not found, a “Movie not found” message is displayed.
+  ![image](https://github.com/user-attachments/assets/3f7ccba0-5896-45a1-be3e-8cccb716dded)  ![image](https://github.com/user-attachments/assets/4e13af5b-9209-4421-a7dd-0f7526483b51)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Movie Details**  
+  When a movie is selected from the list, detailed information such as description, runtime, and other data from the API appears on the left side of the screen.
+![image](https://github.com/user-attachments/assets/95aafa81-d49d-491b-a618-927dba39378e)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Rating Movies**  
+  Users can rate movies by hovering over the star bar and selecting the desired number of stars. After rating, the option to add the movie to the watched list becomes available.
+![image](https://github.com/user-attachments/assets/138563f8-7da3-48cf-ade9-68eac56ab080)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Watched Movies List**  
+  In the **"Movies you watched"** section, users can view a summary of all rated and watched films. Each entry shows the average user rating, individual rating, and the runtime of the movie.
+![image](https://github.com/user-attachments/assets/68b96614-6c34-4145-bd5e-ca04b6eb5f27)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies and Data Sources
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- The application uses the [OMDb API](https://www.omdbapi.com), which provides data such as movie titles, descriptions, release year, runtime, and posters.
+- The user interface allows for real-time movie searching and rating.
