@@ -15,7 +15,8 @@
 
 - **Watched Movies List**  
   In the **"Movies you watched"** section, users can view a summary of all rated and watched films. Each entry shows the average user rating, individual rating, and the runtime of the movie.
-![Animation](https://github.com/user-attachments/assets/459f3614-e2d5-4fe0-b363-9822f469d300)
+![Animation](https://github.com/user-attachments/assets/fe33ec8d-6c70-43e1-a381-da60a275dfa5)
+
 
 
 
